@@ -30,41 +30,43 @@ const ProductTable: React.FC<ProductTableProps> = ({ products, onProductDeleted 
   };
 
   return (
-    <table className="w-full border">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Category</th>
-          <th>Price</th>
-          <th>Stock</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {products.map((product) => (
-          <tr key={product.id}>
-            <td>{product.name}</td>
-            <td>{product.category}</td>
-            <td>${product.price.toFixed(2)}</td>
-            <td>{product.stock}</td>
-            <td>
-              <button
-                onClick={() => router.push(`/products/${product.id}`)}
-                className="bg-green-500 text-white px-2 py-1 rounded"
-              >
-                Details
-              </button>
-              <button
-                onClick={() => handleDelete(product.id)}
-                className="bg-red-500 text-white px-2 py-1 rounded ml-2"
-              >
-                Delete
-              </button>
-            </td>
+    <div className="overflow-x-auto">
+      <table className="min-w-full table-auto border-separate border-spacing-0">
+        <thead>
+          <tr className="bg-gray-200">
+            <th className="px-4 py-2 text-left border-b">Name</th>
+            <th className="px-4 py-2 text-left border-b">Category</th>
+            <th className="px-4 py-2 text-left border-b">Price</th>
+            <th className="px-4 py-2 text-left border-b">Stock</th>
+            <th className="px-4 py-2 text-left border-b">Actions</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {products.map((product) => (
+            <tr key={product.id} className="hover:bg-gray-50">
+              <td className="px-4 py-2 border-b">{product.name}</td>
+              <td className="px-4 py-2 border-b">{product.category}</td>
+              <td className="px-4 py-2 border-b">${product.price.toFixed(2)}</td>
+              <td className="px-4 py-2 border-b">{product.stock}</td>
+              <td className="px-4 py-2 border-b flex space-x-2">
+                <button
+                  onClick={() => router.push(`/products/${product.id}`)}
+                  className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-200"
+                >
+                  Details
+                </button>
+                <button
+                  onClick={() => handleDelete(product.id)}
+                  className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-200"
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 

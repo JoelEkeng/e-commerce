@@ -1,14 +1,12 @@
-//@ts-nocheck
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/(Admin)/card";
+// @ts-nocheck
+"use client";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/(Admin)/card";
 import { formatNumber } from "@/(hooks)/formatters";
 import axios from "axios";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
+// Fetch user data
 async function getUserData() {
   try {
     const response = await axios.get("https://e-commerce-mbyo.onrender.com/user/");
@@ -20,39 +18,36 @@ async function getUserData() {
   }
 }
 
-async function getProductData() {
-  try {
-    const [activeCount, inactiveCount] = await Promise.all([
-      axios
-        .get("https://e-commerce-mbyo.onrender.com/product/active")
-        .then((res) => res.data.count),
-      axios
-        .get("https://e-commerce-mbyo.onrender.com/product/inactive")
-        .then((res) => res.data.count),
-    ]);
-
-    return { activeCount, inactiveCount };
-  } catch (error) {
-    console.error("Error fetching product data:", error);
-    return { activeCount: 0, inactiveCount: 0 };
-  }
-}
-
 export default async function AdminDashboard() {
-  const [userData, productData] = await Promise.all([getUserData(), getProductData()]);
+  const [userData] = await Promise.all([getUserData()]);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <DashboardCard
-        title="Customers"
-        subtitle={`${formatNumber(userData.userCount)} Registered Users`}
-        body={`${formatNumber(userData.userCount)}`}
-      />
-      <DashboardCard
-        title="Active Products"
-        subtitle={`${formatNumber(productData.inactiveCount)} Inactive`}
-        body={formatNumber(productData.activeCount)}
-      />
+    <div className="p-6">
+
+      {/* Product Management Actions */}
+      <div className="mt-8 ">
+        <div className="flex justify-between items-center">
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">Product Management</h2>
+        <div className="flex space-x-4">
+          <button
+            className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200"
+          >
+            <Link href="/admin/products">
+            Add New Product
+            </Link>
+          </button>
+        </div>
+        </div>
+        
+
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <DashboardCard
+          title="Customers"
+          subtitle={`${formatNumber(userData.userCount)} Registered Users`}
+          body={`${formatNumber(userData.userCount)}`}
+        />
+      </div>
+      </div>
     </div>
   );
 }
@@ -76,3 +71,9 @@ function DashboardCard({ title, subtitle, body }: DashboardCardProps) {
     </Card>
   );
 }
+
+// Handle navigation for product management actions
+const handleNavigation = (path: string) => {
+  const router = useRouter();
+  router.push(path);
+};

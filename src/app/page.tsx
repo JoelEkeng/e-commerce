@@ -9,8 +9,8 @@ export default function Home() {
     <div className="pb-20 gap-16 font-[family-name:var(--font-geist-sans)]">
       <Header />
       <div className="px-10">
-      <Search />
-      <Deals />
+      <Search/> 
+      <Deals/>
       </div>
       <Footer/>
     </div>
