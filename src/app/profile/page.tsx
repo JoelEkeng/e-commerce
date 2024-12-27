@@ -4,7 +4,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Cookies from '../../../node_modules/@types/js-cookie';
+import Cookies from 'js-cookie';
 import Typography from '@mui/material/Typography';
 
 const ProfilePage = () => {
