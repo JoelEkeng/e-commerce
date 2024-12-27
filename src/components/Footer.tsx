@@ -20,7 +20,7 @@ const Footer = () => {
     ]
 
   return (
-    <footer className='pt-24 px-4 flex justify-evenly items-center'>
+    <footer className='pt-24 px-12 mt-24 flex justify-evenly items-center'>
         <Typography level="body-sm" component="h1" textAlign="end" gutterBottom>
         &copy; Ekeng Joel FInal Year Examination on Cloud Application
         </Typography>

@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <div className="pb-20 gap-16 font-[family-name:var(--font-geist-sans)]">
       <Header />
-      <div className="px-10">
+      <div className="px-10 mb-36">
       {/* <Suspense fallback={<div>Loading...</div>}>
       <Search />
      </Suspense> */}
