@@ -2,8 +2,8 @@
 import React from "react";
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 import Search from '@/components/Search';
-
 
 const SearchPage: React.FC = () => {
     const searchParams = useSearchParams();
@@ -13,9 +13,12 @@ const SearchPage: React.FC = () => {
     useEffect(() => {
         if (query) {
             const fetchProducts = async () => {
-                const response = await fetch(https://e-commerce-mbyo.onrender.com/admin/products?search=${query});
-                const data = await response.json();
-                setProducts(data);
+                try {
+                    const response = await axios.get(`https://e-commerce-mbyo.onrender.com/admin/products?search=${query}`);
+                    setProducts(response.data);
+                } catch (error) {
+                    console.error('Error fetching products:', error);
+                }
             };
 
             fetchProducts();
@@ -27,7 +30,7 @@ const SearchPage: React.FC = () => {
             <Search />
             <h1 className="mt-12 text-xl font-bold">Search Results for "{query}"</h1>
             {products.length > 0 ? (
-                <div className="pt-4 grid grid-row-1 md:grid-row-2 lg:grid-row-3 gap-4">
+                <div className="pt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {products.map((product: any) => (
                         <div key={product.id} className="border p-4 rounded">
                             <h2 className="text-lg font-semibold">{product.name}</h2>
