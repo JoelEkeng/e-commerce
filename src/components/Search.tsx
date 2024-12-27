@@ -42,12 +42,12 @@ const SearchResults: React.FC = () => {
 };
 
 const SearchPage: React.FC = () => (
-    <Suspense fallback={<div>Loading...</div>}>
+    
         <div className="p-12">
             <Search />
             <SearchResults />
         </div>
-    </Suspense>
+
 );
 
 export default SearchPage;
