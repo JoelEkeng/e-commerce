@@ -1,7 +1,7 @@
 'use client'
 import React from "react";
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import axios from 'axios';
 import Search from '@/components/Search';
 
@@ -27,7 +27,9 @@ const SearchPage: React.FC = () => {
 
     return (
         <div className="p-12">
+            <Suspense fallback={<div>Loading...</div>}>
             <Search />
+            </Suspense>
             <h1 className="mt-12 text-xl font-bold">Search Results for "{query}"</h1>
             {products.length > 0 ? (
                 <div className="pt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
