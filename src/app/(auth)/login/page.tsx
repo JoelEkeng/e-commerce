@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from 'axios';
-import cookies from '../../../../node_modules/@types/js-cookie';
+import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 
 type Inputs = {
@@ -28,8 +28,8 @@ const Login = () => {
             const response = await axios.post('https://e-commerce-mbyo.onrender.com/user/auth/login', data);
             console.log('Response Data:', response.data);
 
-            cookies.set('token', response.data.token, { expires: 1 });
-            cookies.set('user', JSON.stringify(response.data.user), { expires: 1 });
+            Cookies.set('token', response.data.token, { expires: 1 });
+            Cookies.set('user', JSON.stringify(response.data.user), { expires: 1 });
 
             router.push('/profile');
         } catch (error: any) {
