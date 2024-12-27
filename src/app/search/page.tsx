@@ -1,5 +1,5 @@
 'use client'
-
+import React, { Suspense } from "react";
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Search from '@/components/Search';
@@ -23,6 +23,7 @@ const SearchPage: React.FC = () => {
     }, [query]);
 
     return (
+        <Suspense fallback={<div>Loading...</div>}>
         <div className="p-12">
             <Search />
             <h1 className="mt-12 text-xl font-bold">Search Results for "{query}"</h1>
@@ -40,6 +41,7 @@ const SearchPage: React.FC = () => {
                 <p>No products found.</p>
             )}
         </div>
+        </Suspense>
     );
 };
 
