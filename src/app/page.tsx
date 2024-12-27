@@ -17,7 +17,6 @@ export default function Home() {
      </Suspense> */}
       <Deals/>
       </div>
-      <Footer/>
     </div>
   );
 }
