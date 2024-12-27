@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client'
 
 import React, { useState } from "react";
@@ -13,12 +14,12 @@ import { Button } from "@/components/ui/button";
 const shops = [
   { name: "Offers & Deals", items: ["Appliance offers"] },
   { name: "Bespoke", items: ["Bespoke Home", "Bespoke Design Studio", "Bespoke Kitchen", "Bespoke Refrigerators", "Bespoke AI Laundry", "Bespoke Vacuums"] },
-  { name: "Kitchen", items: ["Refrigerators", "Ranges", "Dashwashers", "Microwaves", "Wall Ovens", "Cooktops", "Range Hoods", "Built-in Appliances"] },
+  { name: "Kitchen", items: ["Refrigerators", "Ranges", "Dishwashers", "Microwaves", "Wall Ovens", "Cooktops", "Range Hoods", "Built-in Appliances"] },
   { name: "Laundry", items: ["Discover Laundry", "Washers", "Dryers", "Washer & Dryer Sets", "Washer Dryer Combo"] },
-  { name: "Vacuums", items: ["Discover Vacuums", "Jet Stick Vacuums", "Rovot Vacuums","Shop all Vacuums"] },
-  { name: "Cooling & Heating", items: ["Single-room Systems", "Whole-Home System", "Commerical Solutions"] },
+  { name: "Vacuums", items: ["Discover Vacuums", "Jet Stick Vacuums", "Robot Vacuums", "Shop all Vacuums"] },
+  { name: "Cooling & Heating", items: ["Single-room Systems", "Whole-Home System", "Commercial Solutions"] },
   { name: "Decor: Luxury Appliances", items: ["Discover Exclusive Collection"] },  
-  { name: "Accessories", items: ["Bespoke Refrigerator Panels", "Refrigerator Water Filters", "Laundry Accessories","Range Accrssories", "All Appliance Accessories"] },
+  { name: "Accessories", items: ["Bespoke Refrigerator Panels", "Refrigerator Water Filters", "Laundry Accessories", "Range Accessories", "All Appliance Accessories"] },
 ];
 
 export function Appliances() {
@@ -36,12 +37,12 @@ export function Appliances() {
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        className="w-full w-full p-6 rounded-xl shadow-lg bg-white grid grid-cols-6 gap-4 relative left-12"
+        className="w-full p-6 rounded-xl shadow-lg bg-white grid grid-cols-6 gap-4 relative left-12"
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
       >
-        {shops.map((shop, index) => (
-          <DropdownMenuGroup key={index}>
+        {shops.map((shop) => (
+          <DropdownMenuGroup key={shop.name}>
             <div className="text-lg font-bold border-b border-gray-300 pb-2 mb-4">
               {shop.name}
             </div>

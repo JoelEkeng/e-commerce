@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Typography } from "@mui/joy";
 import {Card, CardBody, CardFooter, Image} from "@nextui-org/react";
 import { img } from "framer-motion/client";

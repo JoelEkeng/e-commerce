@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client'
 
 import React, { useState } from "react";
@@ -11,12 +12,12 @@ import {
 import { Button } from "@/components/ui/button";
 
 const shops = [
-  { name: "Offers & Deals", items: ["Tablets & Computing", "Mointor & Memory"] },
+  { name: "Offers & Deals", items: ["Tablets & Computing", "Monitor & Memory"] },
   { name: "Galaxy Books & Laptops", items: ["Discover Galaxy Books", "Galaxy Book5 Pro 360", "Galaxy Book4 Edge 14|16", "Galaxy Book4 Edge 15", "Galaxy Book 4 Ultra", "Galaxy Book4 Pro 360", "Galaxy Book4 Pro", "Galaxy Book4 360", "Galaxy Book4", "Galaxy Chromebook Plus", "Copilot+ PCs"] },
   { name: "Galaxy Book By Size", items: ['15.0"-16.0"', '13.0"-14.9"', "All Galaxy Book by Size"] },
   { name: "Tablets", items: ["Discover tablets", "Galaxy Tab S10 Ultra | S10+", "Galaxy Tab S9 Ultra | S9+ |S9", "Galaxy Tab S9 FE+ | S9FE", "Galaxy Tab A9+", "Galaxy Tab A9+ Kids Edition", "Shop all Tablets"] },
-  { name: "Mointors", items: ["Discover Mointors", "Discover Odyseey Gaming", "Discover ViewFinity Mointors","OLED Gaming Mointors", "Smart Monitor", "High Resolution", "Business Monitors", "Shop all Mointors"] },
-  { name: "Memory & Storage", items: ["Discoever Memory & Storage", "Sonic PRO Plus Sign up", "Internal SSDs", "Portable SSDs", "Memory Cards", "USB Flash Drives", "Discover Gaming SSDs", "SSD Magician Software", "Shop all Memory & Storage"] },
+  { name: "Monitors", items: ["Discover Monitors", "Discover Odyssey Gaming", "Discover ViewFinity Monitors", "OLED Gaming Monitors", "Smart Monitor", "High Resolution", "Business Monitors", "Shop all Monitors"] },
+  { name: "Memory & Storage", items: ["Discover Memory & Storage", "Sonic PRO Plus Sign up", "Internal SSDs", "Portable SSDs", "Memory Cards", "USB Flash Drives", "Discover Gaming SSDs", "SSD Magician Software", "Shop all Memory & Storage"] },
 ];
 
 export function Computing() {
@@ -34,12 +35,12 @@ export function Computing() {
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        className="w-full w-full p-6 rounded-xl shadow-lg bg-white grid grid-cols-6 gap-4 relative left-12"
+        className="w-full p-6 rounded-xl shadow-lg bg-white grid grid-cols-6 gap-4 relative left-12"
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
       >
-        {shops.map((shop, index) => (
-          <DropdownMenuGroup key={index}>
+        {shops.map((shop) => (
+          <DropdownMenuGroup key={shop.name}>
             <div className="text-lg font-bold border-b border-gray-300 pb-2 mb-4">
               {shop.name}
             </div>

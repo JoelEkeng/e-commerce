@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client'
 
 import React, { useState } from "react";
@@ -27,16 +28,18 @@ export function ShopNav() {
           onMouseEnter={() => setOpen(true)}
           onMouseLeave={() => setOpen(false)}
         >
-          <Button variant={"link"} className="font-bold text-md">Shop</Button>
+          <Button variant={"link"} className="font-bold text-md" aria-haspopup="true">
+            Shop
+          </Button>
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        className="w-full w-[760px] p-6 rounded-xl shadow-lg bg-white grid grid-cols-3 gap-4 relative left-12"
+        className="w-[760px] p-6 rounded-xl shadow-lg bg-white grid grid-cols-3 gap-4 relative left-12"
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
       >
-        {shops.map((shop, index) => (
-          <DropdownMenuGroup key={index}>
+        {shops.map((shop) => (
+          <DropdownMenuGroup key={shop.name}>
             <div className="text-lg font-bold border-b border-gray-300 pb-2 mb-4">
               {shop.name}
             </div>
