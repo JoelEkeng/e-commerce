@@ -1,48 +1,53 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { FaMagnifyingGlass } from "react-icons/fa6";
+import React, { Suspense, useEffect, useState } from "react";
+import { useSearchParams } from 'next/navigation';
+import Search from '@/components/Search';
 
+const SearchResults: React.FC = () => {
+    const searchParams = useSearchParams();
+    const query = searchParams?.get('query');
+    const [products, setProducts] = useState([]);
 
-const Search: React.FC = () => {
-    const [query, setQuery] = useState('');
-    const router = useRouter();
+    useEffect(() => {
+        if (query) {
+            const fetchProducts = async () => {
+                const response = await fetch(`https://e-commerce-mbyo.onrender.com/admin/products?search=${query}`);
+                const data = await response.json();
+                setProducts(data);
+            };
 
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setQuery(event.target.value);
-    };
-
-    const handleSearch = () => {
-        if (query.trim()) {
-            router.push(`/search?query=${encodeURIComponent(query.trim())}`);
+            fetchProducts();
         }
-    };
-
-    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === 'Enter') {
-            handleSearch();
-        }
-    };
+    }, [query]);
 
     return (
-        <div className="flex items-center border border-gray-300 rounded-full p-2">
-            <input
-                type="text"
-                value={query}
-                onChange={handleInputChange}
-                onKeyDown={handleKeyDown}
-                placeholder="Search for products..."
-                className="flex-grow p-2 outline-none"
-            />
-            <button 
-                onClick={handleSearch} 
-                className="bg-black text-white px-4 py-2 rounded-full ml-4 hover:bg-red-600 transition flex items-center justify-center"
-            >
-                <FaMagnifyingGlass size={18} />
-            </button>
+        <div>
+            <h1 className="text-xl font-bold">Search Results for "{query}"</h1>
+            {products.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {products.map((product: any) => (
+                        <div key={product.id} className="border p-4 rounded">
+                            <h2 className="font-semibold">{product.name}</h2>
+                            <p>{product.description}</p>
+                            <p className="text-red-500">${product.price}</p>
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                <p>No products found.</p>
+            )}
         </div>
     );
 };
 
-export default Search;
+const SearchPage: React.FC = () => (
+    <Suspense fallback={<div>Loading...</div>}>
+        <div className="p-12">
+            <Search />
+            <SearchResults />
+        </div>
+    </Suspense>
+);
+
+export default SearchPage;
