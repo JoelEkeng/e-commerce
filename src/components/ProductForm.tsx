@@ -17,24 +17,41 @@ interface ProductFormInputs {
   category: string;
 }
 
+import { useState } from 'react';
+
 const ProductForm: React.FC<ProductFormProps> = ({ onProductSaved }) => {
   const { register, handleSubmit, reset, setValue } = useForm<ProductFormInputs>();
+  const [image, setImage] = useState<File | null>(null);
 
   const onSubmit = async (data: ProductFormInputs) => {
     const method = data.id ? 'PUT' : 'POST';
     const endpoint = data.id ? `https://e-commerce-mbyo.onrender.com/admin/products/${data.id}` : 'https://e-commerce-mbyo.onrender.com/admin/products/';
 
+    const formData = new FormData();
+    Object.keys(data).forEach(key => {
+      formData.append(key, data[key as keyof ProductFormInputs]);
+    });
+    if (image) {
+      formData.append('image', image);
+    }
+
     try {
       const response = await fetch(endpoint, {
         method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: formData,
       });
       if (!response.ok) throw new Error('Error saving product');
       onProductSaved();
       reset();
+      setImage(null);
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setImage(e.target.files[0]);
     }
   };
 
@@ -87,6 +104,17 @@ const ProductForm: React.FC<ProductFormProps> = ({ onProductSaved }) => {
           type="text"
           id="category"
           {...register('category', { required: 'Category is required' })}
+          className="w-full border rounded p-2"
+        />
+      </div>
+
+      <div>
+        <label htmlFor="image">Image</label>
+        <input
+          type="file"
+          id="image"
+          accept="image/*"
+          onChange={handleImageChange}
           className="w-full border rounded p-2"
         />
       </div>

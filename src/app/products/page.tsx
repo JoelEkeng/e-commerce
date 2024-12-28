@@ -24,7 +24,7 @@ const ProductPage = () => {
     }, []);
 
     interface Product {
-        id: string;
+        _id: string;
         name: string;
         price: number;
         category: string;
@@ -86,7 +86,7 @@ const ProductPage = () => {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {filteredProducts.map(product => (
-                        <div key={product.id} className="border p-4 rounded shadow hover:shadow-lg transition-all">
+                        <div key={product._id} className="border p-4 rounded shadow hover:shadow-lg transition-all">
                             <img
                                 src={product.image || '/placeholder-image.jpg'}
                                 alt={product.name}
@@ -97,7 +97,7 @@ const ProductPage = () => {
                             <p className="text-gray-700">Category: {product.category}</p>
                             <button
                                 className="mt-2 px-4 py-2 bg-blue-500 text-white rounded"
-                                onClick={() => handleMoreAboutProduct(product.id)}
+                                onClick={() => handleMoreAboutProduct(product._id)}
                             >
                                 More about product
                             </button>

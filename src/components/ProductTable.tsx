@@ -4,7 +4,7 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 
 interface Product {
-  id: string;
+  _id: string;
   name: string;
   category: string;
   price: number;
@@ -43,20 +43,20 @@ const ProductTable: React.FC<ProductTableProps> = ({ products, onProductDeleted 
         </thead>
         <tbody>
           {products.map((product) => (
-            <tr key={product.id} className="hover:bg-gray-50">
+            <tr key={product._id} className="hover:bg-gray-50">
               <td className="px-4 py-2 border-b">{product.name}</td>
               <td className="px-4 py-2 border-b">{product.category}</td>
               <td className="px-4 py-2 border-b">${product.price.toFixed(2)}</td>
               <td className="px-4 py-2 border-b">{product.stock}</td>
               <td className="px-4 py-2 border-b flex space-x-2">
                 <button
-                  onClick={() => router.push(`/products/${product.id}`)}
-                  className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-200"
+                onClick={() => router.push(`/products/edit/${product._id}`)}
+                  className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-200"
                 >
-                  Details
+                  Edit
                 </button>
                 <button
-                  onClick={() => handleDelete(product.id)}
+                  onClick={() => handleDelete(product._id)}
                   className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-200"
                 >
                   Delete
