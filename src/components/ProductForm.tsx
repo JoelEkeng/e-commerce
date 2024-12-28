@@ -28,8 +28,12 @@ const ProductForm: React.FC<ProductFormProps> = ({ onProductSaved }) => {
     const endpoint = data.id ? `https://e-commerce-mbyo.onrender.com/admin/products/${data.id}` : 'https://e-commerce-mbyo.onrender.com/admin/products/';
 
     const formData = new FormData();
-    Object.keys(data).forEach(key => {
-      formData.append(key, data[key as keyof ProductFormInputs]);
+    Object.entries(data).forEach(([key, value]) => {
+      if (key === 'price' || key === 'stock') {
+        formData.append(key, value !== undefined ? value.toString() : '');
+      } else {
+        formData.append(key, value !== undefined ? value : '');
+      }
     });
     if (image) {
       formData.append('image', image);
